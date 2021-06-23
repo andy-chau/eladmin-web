@@ -1,12 +1,13 @@
-import Cookies from 'js-cookie'
+// import Cookies from 'js-cookie'
+import ZCookies from '../../utils/cookieHelper'
 
 const state = {
   sidebar: {
-    opened: Cookies.get('sidebarStatus') ? !!+Cookies.get('sidebarStatus') : true,
+    opened: ZCookies.get('sidebarStatus') ? !!+ZCookies.get('sidebarStatus') : true,
     withoutAnimation: false
   },
   device: 'desktop',
-  size: Cookies.get('size') || 'small'
+  size: ZCookies.get('size') || 'small'
 }
 
 const mutations = {
@@ -14,13 +15,13 @@ const mutations = {
     state.sidebar.opened = !state.sidebar.opened
     state.sidebar.withoutAnimation = false
     if (state.sidebar.opened) {
-      Cookies.set('sidebarStatus', 1)
+      ZCookies.set('sidebarStatus', 1)
     } else {
-      Cookies.set('sidebarStatus', 0)
+      ZCookies.set('sidebarStatus', 0)
     }
   },
   CLOSE_SIDEBAR: (state, withoutAnimation) => {
-    Cookies.set('sidebarStatus', 0)
+    ZCookies.set('sidebarStatus', 0)
     state.sidebar.opened = false
     state.sidebar.withoutAnimation = withoutAnimation
   },
@@ -29,7 +30,7 @@ const mutations = {
   },
   SET_SIZE: (state, size) => {
     state.size = size
-    Cookies.set('size', size)
+    ZCookies.set('size', size)
   }
 }
 

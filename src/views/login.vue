@@ -45,7 +45,8 @@
 import { encrypt } from '@/utils/rsaEncrypt'
 import Config from '@/settings'
 import { getCodeImg } from '@/api/login'
-import Cookies from 'js-cookie'
+// import Cookies from 'js-cookie'
+import ZCookies from '../utils/cookieHelper'
 import qs from 'qs'
 import Background from '@/assets/images/background.jpg'
 export default {
@@ -102,9 +103,9 @@ export default {
       })
     },
     getCookie() {
-      const username = Cookies.get('username')
-      let password = Cookies.get('password')
-      const rememberMe = Cookies.get('rememberMe')
+      const username = ZCookies.get('username')
+      let password = ZCookies.get('password')
+      const rememberMe = ZCookies.get('rememberMe')
       // 保存cookie里面的加密后的密码
       this.cookiePass = password === undefined ? '' : password
       password = password === undefined ? this.loginForm.password : password
@@ -130,13 +131,13 @@ export default {
         if (valid) {
           this.loading = true
           if (user.rememberMe) {
-            Cookies.set('username', user.username, { expires: Config.passCookieExpires })
-            Cookies.set('password', user.password, { expires: Config.passCookieExpires })
-            Cookies.set('rememberMe', user.rememberMe, { expires: Config.passCookieExpires })
+            ZCookies.set('username', user.username, { expires: Config.passCookieExpires })
+            ZCookies.set('password', user.password, { expires: Config.passCookieExpires })
+            ZCookies.set('rememberMe', user.rememberMe, { expires: Config.passCookieExpires })
           } else {
-            Cookies.remove('username')
-            Cookies.remove('password')
-            Cookies.remove('rememberMe')
+            ZCookies.remove('username')
+            ZCookies.remove('password')
+            ZCookies.remove('rememberMe')
           }
           this.$store.dispatch('Login', user).then(() => {
             this.loading = false
@@ -152,7 +153,7 @@ export default {
       })
     },
     point() {
-      const point = Cookies.get('point') !== undefined
+      const point = ZCookies.get('point') !== undefined
       if (point) {
         this.$notify({
           title: '提示',
@@ -160,7 +161,7 @@ export default {
           type: 'warning',
           duration: 5000
         })
-        Cookies.remove('point')
+        ZCookies.remove('point')
       }
     }
   }

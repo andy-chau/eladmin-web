@@ -4,7 +4,8 @@ import { Notification } from 'element-ui'
 import store from '../store'
 import { getToken } from '@/utils/auth'
 import Config from '@/settings'
-import Cookies from 'js-cookie'
+// import Cookies from 'js-cookie'
+import ZCookies from './cookieHelper'
 
 // 创建axios实例
 const service = axios.create({
@@ -61,7 +62,7 @@ service.interceptors.response.use(
         if (code === 401) {
           store.dispatch('LogOut').then(() => {
             // 用户登录界面提示
-            Cookies.set('point', 401)
+            ZCookies.set('point', 401)
             location.reload()
           })
         } else if (code === 403) {

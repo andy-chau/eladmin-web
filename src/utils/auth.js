@@ -1,18 +1,19 @@
-import Cookies from 'js-cookie'
+// import Cookies from 'js-cookie'
+import ZCookies from './cookieHelper'
 import Config from '@/settings'
 
 const TokenKey = Config.TokenKey
 
 export function getToken() {
-  return Cookies.get(TokenKey)
+  return ZCookies.get(TokenKey)
 }
 
 export function setToken(token, rememberMe) {
   if (rememberMe) {
-    return Cookies.set(TokenKey, token, { expires: Config.tokenCookieExpires })
-  } else return Cookies.set(TokenKey, token)
+    return ZCookies.set(TokenKey, token, { expires: Config.tokenCookieExpires })
+  } else return ZCookies.set(TokenKey, token)
 }
 
 export function removeToken() {
-  return Cookies.remove(TokenKey)
+  return ZCookies.remove(TokenKey)
 }

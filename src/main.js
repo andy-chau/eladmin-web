@@ -1,6 +1,7 @@
 import Vue from 'vue'
 
-import Cookies from 'js-cookie'
+// import Cookies from 'js-cookie'
+import ZCookies from './utils/cookieHelper'
 
 import 'normalize.css/normalize.css'
 
@@ -37,7 +38,7 @@ Vue.use(mavonEditor)
 Vue.use(permission)
 Vue.use(dict)
 Vue.use(Element, {
-  size: Cookies.get('size') || 'small' // set element-ui default size
+  size: ZCookies.get('size') || 'small' // set element-ui default size
 })
 
 Vue.config.productionTip = false

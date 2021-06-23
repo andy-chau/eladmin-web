@@ -23,7 +23,8 @@ import { AppMain, Navbar, Settings, Sidebar, TagsView } from './components'
 import ResizeMixin from './mixin/ResizeHandler'
 import { mapState } from 'vuex'
 import Theme from '@/components/ThemePicker'
-import Cookies from 'js-cookie'
+// import Cookies from 'js-cookie'
+import ZCookies from '../utils/cookieHelper'
 export default {
   name: 'Layout',
   components: {
@@ -54,11 +55,11 @@ export default {
     }
   },
   mounted() {
-    if (Cookies.get('theme')) {
-      this.$refs.theme.theme = Cookies.get('theme')
+    if (ZCookies.get('theme')) {
+      this.$refs.theme.theme = ZCookies.get('theme')
       this.$store.dispatch('settings/changeSetting', {
         key: 'theme',
-        value: Cookies.get('theme')
+        value: ZCookies.get('theme')
       })
     }
   },

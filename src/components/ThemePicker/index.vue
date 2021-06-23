@@ -10,7 +10,9 @@
 <script>
 const version = require('element-ui/package.json').version // element-ui version from node_modules
 const ORIGINAL_THEME = '#409EFF' // default color
-import Cookies from 'js-cookie'
+// import Cookies from 'js-cookie'
+import ZCookies from '../../utils/cookieHelper'
+
 export default {
   data() {
     return {
@@ -31,8 +33,8 @@ export default {
       immediate: true
     },
     async theme(val) {
-      Cookies.set('theme', val, { expires: 365 })
-      const oldVal = this.chalk ? this.theme : Cookies.get('theme') ? Cookies.get('theme') : ORIGINAL_THEME
+      ZCookies.set('theme', val, { expires: 365 })
+      const oldVal = this.chalk ? this.theme : ZCookies.get('theme') ? ZCookies.get('theme') : ORIGINAL_THEME
       if (typeof val !== 'string') return
       const themeCluster = this.getThemeCluster(val.replace('#', ''))
       const originalCluster = this.getThemeCluster(oldVal.replace('#', ''))
