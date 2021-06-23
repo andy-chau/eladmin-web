@@ -1,10 +1,6 @@
-import Vue from 'vue'
-import Router from 'vue-router'
 import Layout from '../layout/index'
 
-Vue.use(Router)
-
-export const constantRouterMap = [
+const constantRouterMap = [
   { path: '/login',
     meta: { title: '登录', noCache: true },
     component: (resolve) => require(['@/views/login'], resolve),
@@ -60,9 +56,4 @@ export const constantRouterMap = [
   }
 ]
 
-export default new Router({
-  // mode: 'hash',
-  mode: 'history',
-  scrollBehavior: () => ({ y: 0 }),
-  routes: constantRouterMap
-})
+export default constantRouterMap

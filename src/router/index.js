@@ -1,4 +1,6 @@
-import router from './routers'
+import Vue from 'vue'
+import Router from 'vue-router'
+import constantRouterMap from './routers'
 import store from '@/store'
 import Config from '@/settings'
 import NProgress from 'nprogress' // progress bar
@@ -10,6 +12,15 @@ import { filterAsyncRouter } from '@/store/modules/permission'
 NProgress.configure({ showSpinner: false })// NProgress Configuration
 
 const whiteList = ['/login']// no redirect whitelist
+
+Vue.use(Router)
+
+const router = new Router({
+  mode: 'hash',
+  // mode: 'history',
+  scrollBehavior: () => ({ y: 0 }),
+  routes: constantRouterMap
+})
 
 router.beforeEach((to, from, next) => {
   if (to.meta.title) {
@@ -70,3 +81,5 @@ export const loadMenus = (next, to) => {
 router.afterEach(() => {
   NProgress.done() // finish progress bar
 })
+
+export default router

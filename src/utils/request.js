@@ -1,5 +1,5 @@
 import axios from 'axios'
-import router from '@/router/routers'
+import router from '@/router/index'
 import { Notification } from 'element-ui'
 import store from '../store'
 import { getToken } from '@/utils/auth'

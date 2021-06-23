@@ -7,28 +7,25 @@ function resolve(dir) {
 }
 
 const name = defaultSettings.title // 网址标题
+const port = 8013 // 端口配置
 
-// vue.config.js
+// All configuration item explanations can be find in https://cli.vuejs.org/config/
 module.exports = {
-  // 选项...
-
-  // 默认情况下，Vue CLI 会假设你的应用是被部署在一个域名的根路径上，例如 https://www.my-app.com/。如果应用被部署在一个子路径上，
-  // 你就需要用这个选项指定这个子路径。例如，如果你的应用被部署在 https://www.my-app.com/my-app/，则设置 publicPath 为 /my-app/。
-  // publicPath:'/app',
-
-  /** 区分打包环境与开发环境
-     * process.env.NODE_ENV==='production'  (打包环境)
-     * process.env.NODE_ENV==='development' (开发环境)
-     * publicPath: process.env.NODE_ENV==='production'?"https://xxx":'',
-     */
+  // hash 模式下可使用
+  // publicPath: process.env.NODE_ENV === 'development' ? '/' : './',
+  // publicPath: '/',
   publicPath: process.env.NODE_ENV === 'production' ? '/app' : '/',
-
-  assetsDir: 'static',
-
-  // publicPath:'./',
-  // 当运行 vue-cli-service build 时生成的生产环境构建文件的目录
   outputDir: 'dist',
+  assetsDir: 'static',
+  lintOnSave: process.env.NODE_ENV === 'development',
+  productionSourceMap: false,
   devServer: {
+    port: port,
+    open: true,
+    overlay: {
+      warnings: false,
+      errors: true
+    },
     proxy: {
       '/api': {
         target: process.env.VUE_APP_BASE_API,
@@ -57,12 +54,6 @@ module.exports = {
       }
     }
   },
-
-  // 使用带有浏览器内编译器的完整构建版本,是否使用包含运行时编译器的 Vue 构建版本
-  // 设置为 true 后你就可以在 Vue 组件中使用 template 选项了，但是这会让你的应用额外增加 10kb 左右
-  // runtimeCompiler: true,
-
-  //
   chainWebpack(config) {
     config.plugins.delete('preload') // TODO: need test
     config.plugins.delete('prefetch') // TODO: need test
@@ -108,7 +99,7 @@ module.exports = {
             .plugin('ScriptExtHtmlWebpackPlugin')
             .after('html')
             .use('script-ext-html-webpack-plugin', [{
-              // `runtime` must same as runtimeChunk name. default is `runtime`
+            // `runtime` must same as runtimeChunk name. default is `runtime`
               inline: /runtime\..*\.js$/
             }])
             .end()
