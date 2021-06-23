@@ -30,8 +30,11 @@ async function createWindow() {
   } else {
     createProtocol('app')
     // Load the index.html when not in development
-    await win.loadURL('app://./index.html')
-    win.webContents.openDevTools()
+    // 调试
+    // await win.loadURL('app://./index.html')
+    // win.webContents.openDevTools()
+    // prod
+    win.loadURL('app://./index.html')
   }
 }
 
